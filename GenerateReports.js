@@ -8,7 +8,6 @@
  * for each Food Assistance Provider, copying 
  * relevant distribution data from a table
  * of model distributions.
- * 
  */
 
 // Table Objects
