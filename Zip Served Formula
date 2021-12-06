@@ -1,0 +1,6 @@
+CONCATENATE(
+{Zip Code}, " [",
+    IF({Households Served}>0,CONCATENATE("HHs: ", {Households Served}," " ),""),
+    IF({Individuals Served}>0,CONCATENATE("Individuals: ", {Individuals Served}," "),""),
+    IF({Prepared Meals Served}>0,CONCATENATE("Meals: ", {Prepared Meals Served}, " "),""),
+    "]")
