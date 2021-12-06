@@ -1,8 +1,9 @@
 /**
- * --VERSION--
- * 
  * SCRIPT TO PRE-POPULATE WEEKLY REPORTS
- * -------------------------------------
+ * -------------------------------------        
+ * 
+ * v1.0
+ * Created by: Christopher Webster <cwebster@law.umaryland.edu
  * 
  * This script pre-populates weekly reports
  * for each Food Assistance Provider, copying 
