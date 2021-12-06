@@ -2,7 +2,7 @@
  * SCRIPT TO PRE-POPULATE WEEKLY REPORTS
  * -------------------------------------        
  * 
- * v1.0
+ * v1.1
  * Created by: Christopher Webster <cwebster@law.umaryland.edu
  * 
  * This script pre-populates weekly reports
@@ -84,7 +84,7 @@ for (let foodAssistanceProvider of foodAssistanceProviders.records) {
         // Set up the new report
         console.info(count + ".2) Saving new report for " + foodAssistanceProvider.name)
         let newReport = reportsTable.createRecordAsync({
-            "Food Access Provider": new Array({id: foodAssistanceProvider.id}),
+            "Food Assistance Provider": new Array({id: foodAssistanceProvider.id}),
             "Report Start": reportStart,
             "Report End": reportEnd,
             "Distributions": newDistributions
