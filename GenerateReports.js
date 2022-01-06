@@ -3,7 +3,7 @@
  * -------------------------------------        
  * 
  * v1.1
- * Created by: Christopher Webster <cwebster@law.umaryland.edu
+ * Created by: Christopher Webster <cwebster@law.umaryland.edu>
  * 
  * This script pre-populates weekly reports
  * for each Food Assistance Provider, copying 
