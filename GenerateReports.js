@@ -2,7 +2,7 @@
  * SCRIPT TO PRE-POPULATE WEEKLY REPORTS
  * -------------------------------------        
  * 
- * v1.1
+ * v1.2
  * Created by: Christopher Webster <cwebster@law.umaryland.edu>
  * 
  * This script pre-populates weekly reports
@@ -18,7 +18,7 @@ let reportsTable = base.getTable("Reports");
 let distributionsTable = base.getTable("Distributions");
 
 // 1. Grab all providers
-let foodAssistanceProviders = await fapTable.selectRecordsAsync({fields: ["Name", "IsReporting", "Distribution Profiles"]})
+let foodAssistanceProviders = await fapTable.selectRecordsAsync({fields: ["Name", "Is Reporting", "Distribution Profiles", "Contact Name", "Contact Email"]})
 
 // 2. Grab profiles for each of those providers
 let modelDistributions = await modelDistributionsTable.selectRecordsAsync({fields: [
@@ -37,10 +37,10 @@ let modelDistributions = await modelDistributionsTable.selectRecordsAsync({field
 // 2.1 Create a report for that provider, and the add the profile.
 let reports = await reportsTable.selectRecordsAsync({fields: ["ReportID", "Food Assistance Provider", "Distributions", "Report Start", "Report End"]})
 
-//Figure out the dates (For Now, then back 6 days)
+//Figure out the dates (For Now, then forward 6 days)
 let reportEnd = new Date(Date.now());
 let reportStart = new Date(Date.now());
-reportStart.setDate(reportStart.getDate() - 6);
+reportEnd.setDate(reportStart.getDate() + 6);
 
 console.info("Generating reports for " + reportStart.toLocaleString() + " - " + reportEnd.toLocaleString())
 
@@ -49,8 +49,8 @@ for (let foodAssistanceProvider of foodAssistanceProviders.records) {
     count++;
     console.info(count + ") Working on " + foodAssistanceProvider.name);
     
-    //Only process those that are recording
-    if(foodAssistanceProvider.getCellValue("IsReporting")) {
+    //Only process those that are reporting
+    if(foodAssistanceProvider.getCellValue("Is Reporting")) {
         console.info(count + ".1) generating report");    
         
         // Go through the model distributions 
@@ -89,8 +89,13 @@ for (let foodAssistanceProvider of foodAssistanceProviders.records) {
             "Report End": reportEnd,
             "Distributions": newDistributions
         })
+
+        output.set(foodAssistanceProvider.id, { 
+            "Name": foodAssistanceProvider.getCellValueAsString("Name"),
+            "Contact Name": foodAssistanceProvider.getCellValueAsString("Contact Name"), 
+            "Contact Email": foodAssistanceProvider.getCellValueAsString("Contact Email")
+        })
     }
 }
 
 console.debug("DONE!")
-    
